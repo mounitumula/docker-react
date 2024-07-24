@@ -5,7 +5,7 @@ services:
 
 # what it should have before it runs test cases (building images from Dockerfie.dev)
 before_install:
-  - docker build -t mounikatumula/docker-react -f Dockerfile.dev
+  - docker build -t mounikatumula/docker-react -f Dockerfile.dev .
 
 # to run test suits and exit automatically (CI=true)
 script:
