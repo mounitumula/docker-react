@@ -10,3 +10,20 @@ before_install:
 # to run test suits and exit automatically (CI=true)
 script:
   - docker run -e CI=true mounikatumula/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "frontend"
+  env: "frontend-env"
+  bucket_name: "elasticbeanstalk-us-east-1-009160050024"
+  bucket_path: "frontend"
+  on:
+    branch: main
+  aws_access_id: $AWS_ACCESS_KEY
+  aws_secret_access_key: "$AWS_SECRET_KEY"
+
+  # only deploy when there is a change in main branch
+
+  # on:
+  #   branch: main
