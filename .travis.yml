@@ -1,13 +1,29 @@
-sudo: required
 
 # telling travis we need a copy of running docker
 services:
   - docker
 
 # what it should have before it runs test cases (building images from Dockerfie.dev)
-before-install:
-  - docker build -t mounikatumula/docker-react -f Dockerfile.dev
+before_install:
+  - docker build -t mounikatumula/docker-react -f Dockerfile.dev .
 
 # to run test suits and exit automatically (CI=true)
-scripts:
+script:
   - docker run -e CI=true mounikatumula/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "frontend"
+  env: "frontend-env"
+  bucket_name: "elasticbeanstalk-us-east-1-009160050024"
+  bucket_path: "frontend"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
+
+  # only deploy when there is a change in main branch
+
+  # on:
+  #   branch: main
