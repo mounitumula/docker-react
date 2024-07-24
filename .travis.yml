@@ -1,0 +1,13 @@
+sudo: required
+
+# telling travis we need a copy of running docker
+services:
+  - docker
+
+# what it should have before it runs test cases (building images from Dockerfie.dev)
+before-install:
+  - docker build -t mounikatumula/docker-react -f Dockerfile.dev
+
+# to run test suits and exit automatically (CI=true)
+scripts:
+  - docker run -e CI=true mounikatumula/docker-react npm run test
